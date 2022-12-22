@@ -123,7 +123,11 @@ const Anecdote = ({ clickAnecdote }) => {
   // const note = clickAnecdote.find((n) => n.id === Number(id));
   return (
     <div>
-      <h2>{clickAnecdote.content}</h2>
+      <h2>
+        {clickAnecdote.content}
+        {""} {clickAnecdote.author}
+      </h2>
+      <div>has {clickAnecdote.votes} votes</div>
       {/* <div>{note.user}</div> */}
     </div>
   );
@@ -185,7 +189,7 @@ const App = () => {
           path="/"
           element={<AnecdoteList anecdotes={anecdotes} />}
         ></Route>
-        <Route path="/create" element={<CreateNew />}></Route>
+        <Route path="/create" element={<CreateNew addNew={addNew} />}></Route>
         <Route path="/about" element={<About />}></Route>
       </Routes>
 
