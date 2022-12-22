@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useParams, useMatch } from "react-router-dom";
 
 import { useState } from "react";
 
@@ -118,7 +118,19 @@ const CreateNew = (props) => {
   );
 };
 
+const Anecdote = ({ clickAnecdote }) => {
+  // const id = useParams().id;
+  // const note = clickAnecdote.find((n) => n.id === Number(id));
+  return (
+    <div>
+      <h2>{clickAnecdote.content}</h2>
+      {/* <div>{note.user}</div> */}
+    </div>
+  );
+};
+
 const App = () => {
+  const match = useMatch("/:id");
   const [anecdotes, setAnecdotes] = useState([
     {
       content: "If it hurts, do it more often",
@@ -135,6 +147,10 @@ const App = () => {
       id: 2,
     },
   ]);
+
+  const clickAnecdote = match
+    ? anecdotes.find((note) => note.id === Number(match.params.id))
+    : null;
 
   const [notification, setNotification] = useState("");
 
@@ -161,6 +177,10 @@ const App = () => {
       <h1>Software anecdotes</h1>
       <Menu />
       <Routes>
+        <Route
+          path="/:id"
+          element={<Anecdote clickAnecdote={clickAnecdote} />}
+        ></Route>
         <Route
           path="/"
           element={<AnecdoteList anecdotes={anecdotes} />}
