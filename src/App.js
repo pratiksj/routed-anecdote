@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import { useState } from "react";
+import { useField } from "./hooks";
 
 const Menu = () => {
   const padding = {
@@ -83,26 +84,26 @@ const Notification = ({ message }) => {
     borderWidth: 1,
   };
 
-  // if (message === null) {
-  //   return null;
-  // }
-
   return <div style={style}>{message}</div>;
 };
 
 const CreateNew = (props) => {
   const navigate = useNavigate();
-  const [content, setContent] = useState("");
-  const [author, setAuthor] = useState("");
-  const [info, setInfo] = useState("");
+  // const [content, setContent] = useState("");
+  // const [author, setAuthor] = useState("");
+  // const [info, setInfo] = useState("");
   //const [notification, setNotification] = useState("");
+  const content = useField("");
+  const author = useField("");
+  const info = useField("");
+  console.log(content);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.addNew({
-      content,
-      author,
-      info,
+      content: content.value,
+      author: author.value,
+      info: info.value,
       votes: 0,
     });
     navigate("/");
@@ -115,26 +116,22 @@ const CreateNew = (props) => {
         <div>
           content
           <input
-            name="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            type={content.type}
+            value={content.value}
+            onChange={content.onChange}
           />
         </div>
         <div>
           author
           <input
-            name="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            type={author.type}
+            value={author.value}
+            onChange={author.onChange}
           />
         </div>
         <div>
           url for more info
-          <input
-            name="info"
-            value={info}
-            onChange={(e) => setInfo(e.target.value)}
-          />
+          <input type={info.type} value={info.value} onChange={info.onChange} />
         </div>
         <button>create</button>
       </form>
