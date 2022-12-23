@@ -96,6 +96,7 @@ const CreateNew = (props) => {
   const content = useField("");
   const author = useField("");
   const info = useField("");
+  const reset = useField("");
   console.log(content);
 
   const handleSubmit = (e) => {
@@ -107,6 +108,11 @@ const CreateNew = (props) => {
       votes: 0,
     });
     navigate("/");
+  };
+  const resetForm = () => {
+    content.resetAll();
+    author.resetAll();
+    info.resetAll();
   };
 
   return (
@@ -135,6 +141,7 @@ const CreateNew = (props) => {
         </div>
         <button>create</button>
       </form>
+      <button onClick={() => resetForm()}>reset</button>
     </div>
   );
 };
